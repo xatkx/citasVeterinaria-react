@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { v4 as uuid} from 'uuid'
+import PropTypes from 'prop-types'
 
 // components
 import Notification from './notification';
@@ -86,5 +87,7 @@ const Form = ({addCitas}) => {
         </React.Fragment>
     )
 }
-
+Form.propTypes = {
+    addCitas: PropTypes.func.isRequired
+}
 export default Form;

@@ -1,12 +1,29 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 
 import Form from './components/form'
 import Cita from './components/cita'
 const App = () => {
 
-    const [ citas, citasHandler] = useState([])
+    /// local storage
+    let db = JSON.parse(localStorage.getItem('citas'));
 
+    if(!db) db = [];
+
+    //hooks
+    const [ citas, citasHandler] = useState(db) // useState
+
+    useEffect(() => {
+        if(db) 
+        {
+            localStorage.setItem('citas',JSON.stringify(citas))
+        } else {
+            localStorage.setItem('citas',JSON.stringify([]))
+        }
+    }, [citas])
+
+
+    // function
     const addCitas = obj => {
         citasHandler([...citas, obj])
     }
@@ -14,7 +31,7 @@ const App = () => {
         const filter = citas.filter( date => date.id !== id)
         citasHandler([...filter])
     }
-
+    // var
     const title = citas.length ? 'Lista de citas' : 'No hay Citas'
 
     return (
